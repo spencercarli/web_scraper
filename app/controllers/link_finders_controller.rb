@@ -14,8 +14,16 @@ class LinkFindersController < ApplicationController
   # GET /link_finders/1.json
   def show
     @link_finder = LinkFinder.find(params[:id])
-    #@page = Pismo::Document.new(@link_finder.url)
-    @link = meetup_ical_find(@link_finder.url)
+    @page = Pismo::Document.new(@link_finder.url)
+    if @link_finder.service_selection == 1
+      @link = meetup_ical_find(@link_finder.url)
+    elsif @link_finder.service_selection = 2
+      @link = 'Evenbrite'
+    else
+      @link = 'This is an error'
+    end
+    
+    
 
     respond_to do |format|
       format.html # show.html.erb
