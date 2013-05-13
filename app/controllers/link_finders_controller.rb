@@ -14,15 +14,19 @@ class LinkFindersController < ApplicationController
   # GET /link_finders/1.json
   def show
     @link_finder = LinkFinder.find(params[:id])
-    @page = Pismo::Document.new(@link_finder.url)
+    @page = Nokogiri::HTML(open(@link_finder.url))
+
+    @event_id = find_event_id(@page)
+
     if @link_finder.service_selection == 1
       @link = meetup_ical_find(@link_finder.url)
     elsif @link_finder.service_selection = 2
-      @link = 'Evenbrite'
+      @link = eventbrite_ical_find(@page)
     else
       @link = 'This is an error'
     end
-    
+
+    return @link
     
 
     respond_to do |format|
@@ -103,6 +107,26 @@ class LinkFindersController < ApplicationController
     end
 
     return @work
+  end
+
+  #Setup the Eventbrite integration
+  def eventbrite_ical_find(page)
+    @string = "Currently not able to create a link for eventbrite. You can download the file by clicking on an event and looking within
+    the 'When & Where' box on the right hand side. If you got to the bottom of this box and click on 'Add to my calendar' then click 'iCal
+    Calendar' a download will begin."
+
+    @event_id = find_event_id(page)
+
+    #Number below is the only thing that needs to be changed. It's the event id
+    @url = 'http://www.eventbrite.com/calendar.ics?eid=' + @event_id + '&calendar=' + 'ical'
+    return @url
+  end
+
+  def find_event_id(file)
+    @in = file.to_s
+    @start_array = @in.index("AddToCalendar('ical',%20'http://www.eventbrite.com',%20")
+    @out = @in[@start_array+56.. @start_array+65]
+    return @out
   end
 end
 
