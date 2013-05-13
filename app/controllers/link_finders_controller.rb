@@ -1,4 +1,7 @@
 class LinkFindersController < ApplicationController
+  
+  require 'open-uri'
+
   # GET /link_finders
   # GET /link_finders.json
   def index
@@ -111,10 +114,6 @@ class LinkFindersController < ApplicationController
 
   #Setup the Eventbrite integration
   def eventbrite_ical_find(page)
-    @string = "Currently not able to create a link for eventbrite. You can download the file by clicking on an event and looking within
-    the 'When & Where' box on the right hand side. If you got to the bottom of this box and click on 'Add to my calendar' then click 'iCal
-    Calendar' a download will begin."
-
     @event_id = find_event_id(page)
 
     #Number below is the only thing that needs to be changed. It's the event id
@@ -122,6 +121,7 @@ class LinkFindersController < ApplicationController
     return @url
   end
 
+  #Finds the event id for  the event provided
   def find_event_id(file)
     @in = file.to_s
     @start_array = @in.index("AddToCalendar('ical',%20'http://www.eventbrite.com',%20")
