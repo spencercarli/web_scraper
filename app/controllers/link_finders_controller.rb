@@ -14,7 +14,8 @@ class LinkFindersController < ApplicationController
   # GET /link_finders/1.json
   def show
     @link_finder = LinkFinder.find(params[:id])
-    @url = Pismo::Document.new(@link_finder.url)
+    #@page = Pismo::Document.new(@link_finder.url)
+    @link = meetup_ical_find(@link_finder.url)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -83,8 +84,17 @@ class LinkFindersController < ApplicationController
   end
 
   #Find the ical link within the document
-  def meetup_ical_find
+  def meetup_ical_find(page)
+    @download_link = "events/calendar/ical/download.ics"
+    @feed = page.to_s
 
+    if @feed.last == '/'
+      return @feed + @download_link
+    else
+      return @feed + '/' + @download_link
+    end
+
+    return @work
   end
 end
 
