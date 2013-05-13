@@ -1,0 +1,2 @@
+module LinkFindersHelper
+end

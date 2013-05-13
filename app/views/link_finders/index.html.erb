@@ -1,0 +1,23 @@
+<h1>Listing link_finders</h1>
+
+<table>
+  <tr>
+    <th>Url</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @link_finders.each do |link_finder| %>
+  <tr>
+    <td><%= link_finder.url %></td>
+    <td><%= link_to 'Show', link_finder %></td>
+    <td><%= link_to 'Edit', edit_link_finder_path(link_finder) %></td>
+    <td><%= link_to 'Destroy', link_finder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Link finder', new_link_finder_path %>
