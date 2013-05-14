@@ -17,13 +17,13 @@ class LinkFindersController < ApplicationController
   # GET /link_finders/1.json
   def show
     @link_finder = LinkFinder.find(params[:id])
-    @page = Nokogiri::HTML(open(@link_finder.url))
-
-    @event_id = find_event_id(@page)
+    
 
     if @link_finder.service_selection == 1
       @link = meetup_ical_find(@link_finder.url)
     elsif @link_finder.service_selection = 2
+      @page = Nokogiri::HTML(open(@link_finder.url))
+      @event_id = find_event_id(@page)
       @link = eventbrite_ical_find(@page)
     else
       @link = 'This is an error'
