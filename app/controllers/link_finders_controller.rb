@@ -17,7 +17,7 @@ class LinkFindersController < ApplicationController
   # GET /link_finders/1.json
   def show
     @link_finder = LinkFinder.find(params[:id])
-    @calendar_url = @link_finder.url + '/events/calendar'
+    @calendar_url = @link_finder.url + 'events/calendar'
     
 
     if @link_finder.service_selection == 1
