@@ -58,6 +58,5 @@ WebScraper::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 
-  match '/' => 'link_finders#index', :as => ''
-  match '/new' => 'link_finders#new', :as => 'new'
+  #match '/new' => 'link_finders#new', :as => 'new'
 end
