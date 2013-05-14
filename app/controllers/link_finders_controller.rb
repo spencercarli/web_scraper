@@ -17,13 +17,15 @@ class LinkFindersController < ApplicationController
   # GET /link_finders/1.json
   def show
     @link_finder = LinkFinder.find(params[:id])
+    @calendar_url = @link_finder.url + '/events/calendar'
     
 
     if @link_finder.service_selection == 1
-      @link = meetup_ical_find(@link_finder.url)
+      @page = Nokogiri::HTML(open(@calendar_url))
+      @link = meetup_ical_find(@page)
     elsif @link_finder.service_selection = 2
       @page = Nokogiri::HTML(open(@link_finder.url))
-      @event_id = find_event_id(@page)
+      #@event_id = find_event_id(@page)
       @link = eventbrite_ical_find(@page)
     else
       @link = 'This is an error'
@@ -97,16 +99,17 @@ class LinkFindersController < ApplicationController
 
   #Find the ical link within the document
   def meetup_ical_find(page)
-    @download_link = "events/calendar/ical/download.ics"
-    @feed = page.to_s
+    @in = page.to_s
+    @start_array = @in.index("Atom</a>")
+    @end_array = @in.index("iCal</a>")
+    @out = 'http://' + @in[@start_array+36..@end_array-4]
 
-    if @feed.last == '/'
-      return @feed + @download_link
-    else
-      return @feed + '/' + @download_link
-    end
 
-    return @work
+    # @event_name = find_event_name(page)
+    # @download_link = "http://www.meetup.com/events/ical/" + @event_name
+    # @feed = page.to_s
+
+    return @out
   end
 
   #Setup the Eventbrite integration
