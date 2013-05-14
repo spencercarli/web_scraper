@@ -29,9 +29,6 @@ class LinkFindersController < ApplicationController
       @link = 'This is an error'
     end
 
-    return @link
-    
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @link_finder }

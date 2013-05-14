@@ -1,13 +1,22 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Url:</b>
-  <%= @link_finder.url %>
+<p class="lead">
+  <%= @link_finder.name %>
 </p>
 
 <p>
-  <%= @link %>
+	<b>URL for event:</b>
 </p>
+<div class="well">
+  <%= @link_finder.url %>
+</div>
+
+<p>
+	<b>URL for Time.ly Calendar:</b>
+</p>
+<div class="well">
+  <%= @link %>
+</div>
 
 
 <%= link_to 'Edit', edit_link_finder_path(@link_finder) %> |

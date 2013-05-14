@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513180230) do
+ActiveRecord::Schema.define(:version => 20130514124852) do
 
   create_table "link_finders", :force => true do |t|
     t.string   "url"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20130513180230) do
     t.datetime "updated_at",        :null => false
     t.integer  "service_selection"
     t.string   "name"
+    t.string   "ics_url"
   end
 
 end
