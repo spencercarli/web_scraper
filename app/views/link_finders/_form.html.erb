@@ -1,3 +1,4 @@
+
 <%= form_for(@link_finder) do |f| %>
   <% if @link_finder.errors.any? %>
     <div id="error_explanation">
@@ -11,23 +12,47 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="span9 add_form" style="margin-top: 30px; ">
+    <div class="span4">
+      <%= f.text_field :name, :placeholder => "Event Name" %>
+    </div>
+    <div class="span4">
+      <p>
+        Enter the name of the event or group.
+      </p>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :url %><br />
-    <%= f.text_field :url %>
+
+  <div class="span9 add_form">
+    <div class="span4">
+      <%= f.text_field :url, :placeholder => "Event URL" %>
+    </div>
+    <div class="span4">
+      <p>
+        Enter the URL for the event. If it is from eventbrite make sure you have chosen an event and not an organization (shouldn't have "org/" anywhere in the URL).
+      </p>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :service_selection_meetup, "Meetup" %><br />
-    <%= f.radio_button :service_selection, 1 %>
+
+  <div class="span9 add_form">
+    <div class="span2">
+      <%= f.label :service_selection_meetup, "Meetup" %>
+      <%= f.radio_button :service_selection, 1 %>
+    </div>
+    <div class="span2">
+      <%= f.label :service_selection_eventbrite, "Eventbrite" %>
+      <%= f.radio_button :service_selection, 2 %>
+    </div>
+    <div class="span4">
+      <p>
+        Select which service you're getting the information from.
+      </p>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :service_selection_eventbrite, "Eventbrite" %><br />
-    <%= f.radio_button :service_selection, 2 %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="span8">
+    <div class="actions">
+      <%= f.submit "Create Link", :class => 'btn btn-primary' %>
+    </div>
   </div>
 <% end %>

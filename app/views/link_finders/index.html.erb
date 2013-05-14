@@ -1,17 +1,24 @@
 <br />
 <p class="lead">Get links for Cintrifuse Calendar</p>
+<p>Simple application to get an ics file from either Meetup or Eventbrite to add to a Time.ly calender. Listed below are feeds
+  that have been seen as interesting and simply have to be added as a feed to the Time.ly interface. In order to see the url needed
+  click 'Show'. To add a new feed click the button and follow the instructions on the following screen.
+</p>
+<p>
+  Email <a href="mailto:spencercarli@gmail.com" target="_blank">spencercarli@gmail.com</a> for support or if you have questions.
+</p>
 
 <table class="table table-striped">
   <tr>
     <th>Name of Event</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Show Data</th>
+    <th>Edit Data</th>
+    <th>Destroy Data</th>
   </tr>
 
 <% @link_finders.each do |link_finder| %>
   <tr>
-    <td><%= link_finder.name %></td>
+    <td><%= truncate(link_finder.name, length: 50) %></td>
     <td><%= link_to 'Show', link_finder %></td>
     <td><%= link_to 'Edit', edit_link_finder_path(link_finder) %></td>
     <td><%= link_to 'Destroy', link_finder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -21,4 +28,4 @@
 
 <br />
 
-<%= button_to 'New Link finder', new_link_finder_path, class: 'btn btn-primary', method: :get %>
+<%= button_to 'New Link', new_link_finder_path, class: 'btn btn-primary', method: :get %>
